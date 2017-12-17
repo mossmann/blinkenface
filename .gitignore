@@ -19,3 +19,8 @@ _autosave-*
 # Exported BOM files
 *.xml
 *.csv
+
+# SKiDL netlist generator
+*.erc
+*.log
+*_lib_sklib.py
