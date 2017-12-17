@@ -25,8 +25,8 @@ for i in range(num_leds):
 		leds[i-1]['CKO'] += cki[i]
 
 # don't connect the output of the last LED
-leds[num_leds - 1]['SDO'] += NC
-leds[num_leds - 1]['CKO'] += NC
+leds[-1]['SDO'] += NC
+leds[-1]['CKO'] += NC
 
 # connect the input of the first LED to a pin header
 header = skidl.Part('conn', 'CONN_01X04', footprint='gsg-modules:HEADER-1x4')
