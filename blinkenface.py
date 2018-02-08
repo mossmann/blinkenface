@@ -9,20 +9,20 @@ vcc = skidl.Net('VCC')
 
 num_leds = 242
 leds = []
-sdi = []
-cki = []
+sdo = []
+cko = []
 for i in range(num_leds):
 	leds.append(skidl.Part('gsg-symbols.lib', 'APA102', footprint='gsg-modules:APA102-2020'))
-	sdi.append(skidl.Net('SDI' + str(i)))
-	cki.append(skidl.Net('SDO' + str(i)))
-	leds[i]['SDI'] += sdi[i]
-	leds[i]['CKI'] += cki[i]
+	sdo.append(skidl.Net('SDO' + str(i)))
+	cko.append(skidl.Net('CKO' + str(i)))
+	leds[i]['SDI'] += sdo[i]
+	leds[i]['CKI'] += cko[i]
 	leds[i]['GND'] += gnd
 	leds[i]['VCC'] += vcc
 	# connect input to previous output
 	if 0 < i:
-		leds[i-1]['SDO'] += sdi[i]
-		leds[i-1]['CKO'] += cki[i]
+		leds[i-1]['SDO'] += sdo[i]
+		leds[i-1]['CKO'] += cko[i]
 
 # don't connect the output of the last LED
 leds[-1]['SDO'] += NC
@@ -32,8 +32,8 @@ leds[-1]['CKO'] += NC
 header = skidl.Part('conn', 'CONN_01X04', footprint='gsg-modules:HEADER-1x4')
 header[1] += gnd
 header[2] += vcc
-header[3] += cki[0]
-header[4] += sdi[0]
+header[3] += cko[0]
+header[4] += sdo[0]
 
 # assume that power is applied to pin header
 header[1].net.drive = skidl.POWER
